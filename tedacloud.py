@@ -133,8 +133,8 @@ class Tedacloud:
         self.nmerge = 0
         g = 0
         nobj = len(self.dataset['Label'].values)
-        #for k in tqdm.tqdm_notebook(range(1,nobj+1)):
-        for k in tqdm.tqdm_notebook(range(1,nobj)):
+        for k in tqdm.tqdm_notebook(range(1,nobj+1)):
+        #for k in tqdm.tqdm_notebook(range(1,nobj)):
         	print(g++)
             # Case 1: k equals to 1
             if(k == 1):
@@ -161,12 +161,12 @@ class Tedacloud:
             	print('3>>> ', g++)
                 # Verify if the point belongs to any cloud.
                 count = 0
-                for key in list(self.clus_teda.keys()):
-                    aux_teda = self.recursive_teda(self.dataset.loc[k,self.features],
-                                              self.clus_teda[key]['curr_mean'],
-                                              self.clus_teda[key]['curr_var'],
-                                              self.clus_teda[key]['curr_scal'],
-                                              self.clus_teda[key]['next_k'],
+                #for key in self.clus_teda.keys():
+                for value in self.clus_teda.values():
+                    aux_teda = self.recursive_teda(self.dataset.loc[k,self.features],                                              self.value['curr_mean'],
+                                              self.value['curr_var'],
+                                              self.value['curr_scal'],
+                                              self.value['next_k'],
                                               m = sd)
 
                     if(aux_teda['outlier'] == 0):
