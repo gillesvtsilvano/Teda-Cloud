@@ -131,13 +131,14 @@ class Tedacloud:
         self.dic_label_solution = {}
         self.nclust = 0
         self.nmerge = 0
-        
+        g = 0
         nobj = len(self.dataset['Label'].values)
         #for k in tqdm.tqdm_notebook(range(1,nobj+1)):
         for k in tqdm.tqdm_notebook(range(1,nobj)):
-        	
+        	print(g++)
             # Case 1: k equals to 1
             if(k == 1):
+            	print('1>>> ', g++)
                 self.nclust = 1
                 self.dic_label_solution[1] = [k]
                 self.clus_teda[1] = self.recursive_teda(self.dataset.loc[k, self.features],
@@ -146,6 +147,7 @@ class Tedacloud:
 
             # Case 2: k equals to 2
             elif(k == 2):
+            	print('2>>> ', g++)
                 self.nclust = 1
                 self.dic_label_solution[1].append(k)
                 self.clus_teda[1] = self.recursive_teda(self.dataset.loc[k,self.features],
@@ -156,6 +158,7 @@ class Tedacloud:
                                               m = sd)
             # Case 3: k greater than 3
             else:
+            	print('3>>> ', g++)
                 # Verify if the point belongs to any cloud.
                 count = 0
                 for key in list(self.clus_teda.keys()):
@@ -169,7 +172,8 @@ class Tedacloud:
                     if(aux_teda['outlier'] == 0):
                         self.clus_teda[key] = aux_teda
                         self.dic_label_solution[key].append(k)
-                        count += 1
+                        count += 1,
+
                 
                 # If the point does not belong to any cloud, a new one cloud is created.
                 if(count == 0):
@@ -186,6 +190,7 @@ class Tedacloud:
             comb = list(itertools.combinations(self.dic_label_solution.keys(), 2))
             idx = []
             for h in comb:
+            	print('comb>>> ', g++)
                 if((len(self.clus_teda[h[0]])) > 1 and len(self.clus_teda[h[1]]) > 1):
                     s1 = set(self.dic_label_solution[h[0]])
                     s2 = set(self.dic_label_solution[h[1]])
@@ -213,6 +218,7 @@ class Tedacloud:
             
             # Delete clouds after merging process
             for dlt in idx:
+            	print('dlt>>> ', g++)
                 del self.clus_teda[dlt]
                 del self.dic_label_solution[dlt]
     
