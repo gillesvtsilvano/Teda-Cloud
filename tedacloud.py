@@ -133,13 +133,15 @@ class Tedacloud:
         self.nmerge = 0
         
         nobj = len(self.dataset['Label'].values)
-        for k in tqdm.tqdm_notebook(range(1,nobj+1)):
+        #for k in tqdm.tqdm_notebook(range(1,nobj+1)):
+        for k in tqdm.tqdm_notebook(range(1,nobj)):
+        	
             # Case 1: k equals to 1
             if(k == 1):
                 self.nclust = 1
                 self.dic_label_solution[1] = [k]
-                self.clus_teda[1] = self.recursive_teda(self.dataset.loc[k,self.features],
-                                                        previous_mean = self.dataset.loc[k,self.features], 
+                self.clus_teda[1] = self.recursive_teda(self.dataset.loc[k, self.features],
+                                                        previous_mean = self.dataset.loc[k, self.features], 
                                                         m = sd)
 
             # Case 2: k equals to 2
